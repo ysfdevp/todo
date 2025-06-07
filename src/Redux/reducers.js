@@ -25,11 +25,19 @@ let nextId =1;
         case 'MODIFY':
             return {
                 ...state,
-                Tasks: 0
+                Tasks: state.Tasks.map(item => {
+                    if (item.id === action.payload) {
+                        return {
+                            ...item,
+                            text: 'Modified'
+                        };
+                    }
+                    return item;
+
+                })
             };
-        default:
-            return state;
-        case 'TOGGLE':
+        
+        case 'DONE':
             return {
                 ...state,
                 Tasks: state.Tasks.map(item => {
@@ -42,6 +50,8 @@ let nextId =1;
                     return item;
                 })
             };
+            default:
+            return state;
     }
 };
 export default reducer
