@@ -29,7 +29,7 @@ let nextId =1;
                     if (item.id === action.payload) {
                         return {
                             ...item,
-                            text: 'Modified'
+                            
                         };
                     }
                     return item;

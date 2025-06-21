@@ -1,8 +1,10 @@
 import React from "react";
+import '@ant-design/v5-patch-for-react-19';
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTask, done, modify } from "../Redux/actions"; // Ensure modify is imported
+import { deleteTask, done, modify } from "../Redux/actions"; 
 import { SlNote } from "react-icons/sl";
 import { message, Button, Space , Input } from "antd";
+import "./ToDo.jsx";
 
 const ToDoList = () => {
   const dispatch = useDispatch();
@@ -42,23 +44,31 @@ const ToDoList = () => {
   };
 
 
+
+    const handleModify = (id) => {
+    dispatch(modify(id));
+    
+  };
+  
+// dispatch(modify(item.id)
+
+
 return (
   <div className="todo-list-wrapper">
     {contextHolder}
     <ul>
       {Tasks.map((item) => (
-        <li style={{display : 'flex' , marginBottom:13, justifyContent : 'space-between' , alignItems : 'center'}}>
-          <span style={{textDecoration : item.completed ? 'line-through' : 'none'}}>{item.text}</span>
+        <li key={item.id} style={{display : 'flex' , marginBottom:13, justifyContent : 'space-between' , alignItems : 'center'}}>
+          <span className="span" style={{textDecoration : item.completed ? 'line-through' : 'none'}}>{item.text}</span>
           <div>
             <Space>
-              <Button onClick={() => handleDelete(item.id)}>❌</Button>
-              <Button onClick={() => dispatch(modify(item.id))}>
-                <SlNote />
-              </Button>
+              <Button className="Button" onClick={() => handleDelete(item.id)}>❌</Button>
+              <Button className="Button" onClick={() => handleModify(item.id)}><SlNote /></Button>
               <Input
                 type="checkbox"
                 onChange={() => handleDone(item.completed , item.id)}
                 checked={item.completed}
+                className="checkbox"
               />
             </Space>
           </div>
